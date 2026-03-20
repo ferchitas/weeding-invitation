@@ -8,7 +8,7 @@
 body{
   margin:0;
   padding:0;
-  background:#eeecff;
+  background:rgb(255, 249, 230);
   font-family:Beth Ellen;
   color:#295C48;
 }
@@ -170,11 +170,11 @@ body{
 
 .bloque-secundario a{
   color:#295C48;
-  text-decoration:none;
+  text-decoration: underline; /* AÑADIDO: Subrayado activado */
 }
 
 .bloque-secundario a:hover{ 
-  text-decoration:underline; 
+  color: #1e4536; /* AÑADIDO: Efecto hover oscurecido */
 }
 
 .bloque-secundario img{ height:auto; width:auto; }
@@ -280,10 +280,10 @@ img{ width:100%; height:auto; }
 }
 .app-bloque a{
   color:#295C48;
-  text-decoration:none;
+  text-decoration: underline; /* AÑADIDO: Subrayado activado para el álbum */
 }
 .app-bloque a:hover{
-  text-decoration:underline;
+  color: #1e4536; /* AÑADIDO: Efecto hover oscurecido */
 }
 .app-icono{
   width:36px;
@@ -292,7 +292,7 @@ img{ width:100%; height:auto; }
 
 .bloque-izquierda {
   position: absolute;
-  top: 50%;
+  top: 53%;
   left: 27%;
   display: flex;
   flex-direction: column;
@@ -302,7 +302,7 @@ img{ width:100%; height:auto; }
 
 .bloque-derecha {
   position: absolute;
-  top: 60%;
+  top: 63%;
   right: 27%;
   display: flex;
   flex-direction: column;
