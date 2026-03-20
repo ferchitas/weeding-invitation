@@ -1,7 +1,9 @@
-despliegue
-guardar los datos en google sheets
-Capitalizar nombres
-si una persona va a las dos gestionarlo para que si cambia la ubicacion vuelva a salir la opcion de contestar 
+despliegue x
+guardar los datos en google sheets x
+Capitalizar nombres x
+si una persona va a las dos gestionarlo para que si cambia la ubicacion vuelva a salir la opcion de contestar x
+que se abra la puerta cuando se pulse en cualquier sitio de la pantalla no solo en el texto
+la flecha en pantallas pequeñas se mueve hacia abajo
 
 query param necesarios:
 

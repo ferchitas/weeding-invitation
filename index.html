@@ -11,7 +11,7 @@
 <body>
     <div class="invitation">
 
-        <section id="pantalla1">
+        <section id="pantalla1" style="cursor: pointer;">
             <img class="fondo" src="galeria/Cerrada.png">
             <p id="abrir">Hola <span id="nombre-invitado">amigo</span><br>Esta invitación es muy especial</p>
             <img class="flecha" src="galeria/Flecha.png">
@@ -117,14 +117,23 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const nombre = params.get('nombre');
+        let nombre = params.get('nombre');
         const ubicacionElegida = params.get('ubicacion');
 
+        // 1. CAPITALIZAR EL NOMBRE (Convierte "m. elia e ines" en "M. Elia E Ines")
+        if (nombre) {
+            nombre = nombre.toLowerCase().split(' ').map(palabra => {
+                return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+            }).join(' ');
+        }
+
+        // 2. APLICAR EL NOMBRE Y COMPROBAR ASISTENCIA (AHORA POR UBICACIÓN)
         if (nombre) {
             document.getElementById('nombre-invitado').innerText = nombre;
             document.getElementById('nombre-oculto').value = nombre;
 
-            if (localStorage.getItem('asistencia_enviada_' + nombre) === 'true') {
+            // Revisamos si ha confirmado para ESTA ubicación en concreto
+            if (ubicacionElegida && localStorage.getItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida) === 'true') {
                 document.getElementById("texto-asistencia").innerText = "¡Asistencia confirmada!";
                 document.getElementById("contenedor-radios").style.display = "none";
                 const btnDetalles = document.getElementById("boton-detalles");
@@ -136,6 +145,7 @@
             }
         }
 
+        // 3. DICCIONARIO DE UBICACIONES Y FECHAS
         const mapaUbicaciones = {
             "lomo": { 
                 nombre: "El Lomo", 
@@ -152,9 +162,7 @@
         if (ubicacionElegida && mapaUbicaciones[ubicacionElegida]) {
             const datos = mapaUbicaciones[ubicacionElegida];
             
-            // LA OTRA MITAD DE LA MAGIA: Rellenar el campo oculto
             document.getElementById('ubicacion-oculta').value = ubicacionElegida;
-
             document.getElementById('fecha-boda').innerText = datos.fecha;
 
             const link = document.getElementById('enlace-lugar');
@@ -169,11 +177,13 @@
             document.getElementById('seccion-ubicacion').style.display = "flex";
         }
 
-        document.getElementById("abrir").onclick = () => {
+        // 4. NAVEGACIÓN: AHORA TODA LA PANTALLA 1 ES CLICKABLE
+        document.getElementById("pantalla1").onclick = () => {
             document.getElementById("pantalla1").style.display = "none";
             document.getElementById("pantalla2").style.display = "block";
         };
 
+        // 5. ENVÍO FORMULARIO A GOOGLE SHEETS
         const radios = document.querySelectorAll('input[name="asistencia"]');
         radios.forEach(radio => {
             radio.addEventListener('change', function() {
@@ -188,13 +198,16 @@
                     method: "POST",
                     body: new FormData(form)
                 }).then(res => {
-                    if (nombre) localStorage.setItem('asistencia_enviada_' + nombre, 'true');
+                    // Guardamos el post-it con el nombre + la ubicación
+                    if (nombre && ubicacionElegida) {
+                        localStorage.setItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida, 'true');
+                    }
                     document.getElementById("pantalla2").style.display = "none";
                     document.getElementById("pantalla3").style.display = "block";
                 }).catch(error => {
-                    // Google a veces da error de CORS aunque haya guardado el dato, 
-                    // así que lo damos por bueno de todas formas.
-                    if (nombre) localStorage.setItem('asistencia_enviada_' + nombre, 'true');
+                    if (nombre && ubicacionElegida) {
+                        localStorage.setItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida, 'true');
+                    }
                     document.getElementById("pantalla2").style.display = "none";
                     document.getElementById("pantalla3").style.display = "block";
                 });
