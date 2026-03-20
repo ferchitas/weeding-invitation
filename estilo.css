@@ -1,3 +1,4 @@
+/* body y contenedor - AJUSTE ADAPTATIVO */
 body{
   margin:0;
   padding:0;
@@ -6,53 +7,50 @@ body{
   color:#295C48;
 }
 
-/* contenedor */
 .invitation{
   width:100%;
-  max-width:412px;
-  aspect-ratio:9/16;
+  max-width:412px; /* Mantiene un ancho máximo para escritorio */
   margin:auto;
   background:rgb(255, 249, 230);
-  overflow:hidden;
+  /* ELIMINADO: aspect-ratio:9/16 y overflow:hidden */
 }
 
-/* PANTALLA 1 */
-#pantalla1 img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+/* PANTALLA 1 - AJUSTE ADAPTATIVO */
+#pantalla1{
+  position:relative;
+  width: 100%;
+  height: 100vh; /* Ocupa el 100% de la altura de la pantalla del móvil */
 }
-#pantalla1{position:relative;}
 
-/* ¡AQUÍ ESTÁ EL CAMBIO! */
+/* Fondo común para las 3 pantallas - AJUSTE ADAPTATIVO */
+#pantalla1 img.fondo, #pantalla2 img.fondo, #pantalla3 img.fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* SE ADAPTA: Cubre la pantalla sin deformarse */
+  object-position: top center; /* Centrado desde arriba */
+  z-index: 0;
+}
+
 #abrir{
   position:absolute;
-  top: 36%; /* Ahora es un porcentaje, se adaptará a todos los móviles */
+  top: 45%; 
   left:50%;
   transform:translateX(-50%);
   font-size:13px;
   text-align:center;
   white-space: nowrap;
+  z-index: 1;
 }
 
-/* PANTALLA 2 */
+/* PANTALLA 2 - AJUSTE ADAPTATIVO */
 #pantalla2{
   display:none;
   position: relative;
   width:100%;
-  height:100%;
-}
-
-/* fondo */
-#pantalla2 .fondo{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:top center;
-  z-index:0;
+  height: 100vh; /* Ocupa el 100% de la altura de la pantalla del móvil */
 }
 
 /* nombres */
@@ -63,6 +61,7 @@ body{
   transform:translateX(-50%);
   text-align:center;
   width:100%;
+  z-index: 1;
 }
 .nombres h1{ font-size:26px; }
 
@@ -82,6 +81,7 @@ body{
   transform:translateX(-50%);
   width:73%;
   text-align:center;
+  z-index: 1;
 }
 .ilustracion img{ width:100%; height:auto; }
 
@@ -92,6 +92,7 @@ body{
   left:50%;
   transform:translateX(-50%);
   text-align:center;
+  z-index: 1;
 }
 .fecha h3{ font-size:18px; margin: 0; }
 
@@ -117,6 +118,7 @@ body{
   display:flex;
   flex-direction:column;
   gap:0px; 
+  z-index: 1;
 }
 
 /* Estilo general para todos los items */
@@ -135,9 +137,7 @@ body{
   margin-top:4px;
 }
 
-/* ==============================================================
-   AJUSTE ESPECÍFICO SÓLO PARA LA UBICACIÓN (#seccion-ubicacion)
-============================================================== */
+/* Ajustes específicos para ubicación */
 #seccion-ubicacion.item {
   align-items: center !important;
   flex-direction: row !important;
@@ -153,21 +153,21 @@ body{
   padding: 0;
   line-height: 1;
 }
-/* ============================================================== */
 
-.bloque-secundario a{
+/* ENLACES - AÑADIDO SUBRAYADO */
+.invitation a{
   color:#295C48;
-  text-decoration: underline; 
+  text-decoration: underline; /* AÑADIDO: Subrayado activado */
 }
 
-.bloque-secundario a:hover{ 
-  color: #1e4536; 
+.invitation a:hover{ 
+  color: #1e4536; /* Oscurecimiento al pasar el ratón */
 }
 
 .bloque-secundario img{ height:auto; width:auto; }
-
 img{ width:100%; height:auto; }
 
+/* FORMULARIO */
 #formAsistencia input[type="text"],
 #formAsistencia textarea {
     width: 100%;
@@ -180,30 +180,6 @@ img{ width:100%; height:auto; }
 }
 #formAsistencia button {
   transform: translate(-27px, -6px);
-}
-.boton-centro {
-  display: flex;
-  justify-content: center;
-  margin-top: 8px;
-  width: 100%;
-}
-
-/* PANTALLA 3 */
-#pantalla3{
-  display:none;
-  position:relative;
-  width:100%;
-  height:100%;
-}
-.texto-pantalla3 h2 {
-  font-size:22px;
-  margin-bottom:8px;
-}
-
-.texto-pantalla3 h4 {
-  font-size:16px;
-}
-#formAsistencia button {
   background-color: #295C48;
   color: #eeecff;
   font-family: 'Averia Serif Libre', serif;
@@ -214,15 +190,33 @@ img{ width:100%; height:auto; }
   cursor: pointer;
   transition: all 0.3s ease;
 }
-#pantalla3 .fondo {
-  position:absolute;
-  top:0;
-  left:0;
+
+/* Efecto hover oscurecido para el botón */
+#formAsistencia button:hover {
+  background-color: #1e4536;
+}
+
+.boton-centro {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* PANTALLA 3 - AJUSTE ADAPTATIVO */
+#pantalla3{
+  display:none;
+  position:relative;
   width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:top center;
-  z-index:0;
+  height: 100vh; /* Ocupa el 100% de la altura de la pantalla del móvil */
+}
+.texto-pantalla3 h2 {
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.texto-pantalla3 h4 {
+  font-size:16px;
 }
 
 .texto-pantalla3 {
@@ -257,6 +251,7 @@ img{ width:100%; height:auto; }
   align-items:center;
   justify-content:center;
   gap:8px;
+  z-index: 1;
 }
 .app-bloque p{
   margin:0;
@@ -265,13 +260,7 @@ img{ width:100%; height:auto; }
   text-align:left;
   font-family:'Averia Serif Libre', serif;
 }
-.app-bloque a{
-  color:#295C48;
-  text-decoration: underline; 
-}
-.app-bloque a:hover{
-  color: #1e4536; 
-}
+
 .app-icono{
   width:36px;
   height:auto;
@@ -285,6 +274,7 @@ img{ width:100%; height:auto; }
   flex-direction: column;
   gap: 40px;
   align-items: center;
+  z-index: 1;
 }
 
 .bloque-derecha {
@@ -295,6 +285,7 @@ img{ width:100%; height:auto; }
   flex-direction: column;
   gap: 40px;
   align-items: center;
+  z-index: 1;
 }
 
 .evento {
@@ -332,6 +323,7 @@ img{ width:100%; height:auto; }
   font-family: 'Beth Ellen'; 
   color: #b86831;
   text-align: center;
+  z-index: 1;
 }
 .decoracion {
   position: absolute;
@@ -351,4 +343,5 @@ img{ width:100%; height:auto; }
   font-family: 'beth ellen';
   color: #b86831;
   text-align: center;
+  z-index: 1;
 }

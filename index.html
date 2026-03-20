@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Invitación</title>
     <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap" rel="stylesheet">
@@ -12,12 +12,12 @@
     <div class="invitation">
 
         <section id="pantalla1" style="cursor: pointer;">
-            <img class="fondo" src="galeria/Cerrada.png">
+            <img class="fondo" src="galeria/Cerrada.png" alt="Fondo Pantalla 1">
             <p id="abrir">Hola <span id="nombre-invitado">amigo</span><br>Esta invitación es muy especial</p>
         </section>
 
         <section id="pantalla2">
-            <img class="fondo" src="galeria/Abierta.png">
+            <img class="fondo" src="galeria/Abierta.png" alt="Fondo Pantalla 2">
 
             <div class="nombres">
                 <h4>¡Nos Casamos!</h4>
@@ -39,17 +39,17 @@
             <div class="bloque-secundario">
                 
                 <div id="seccion-ubicacion" class="item" style="display: none;">
-                    <img src="galeria/Lugar.png" class="icono">
+                    <img src="galeria/Lugar.png" class="icono" alt="Icono Lugar">
                     <p><a id="enlace-lugar" href="#" target="_blank"></a></p>
                 </div>
 
                 <div class="item">
-                    <img src="galeria/Hora.png" class="icono">
+                    <img src="galeria/Hora.png" class="icono" alt="Icono Hora">
                     <p>19:45</p>
                 </div>
 
                 <div class="item">
-                    <img src="galeria/Asistencia.png" class="icono">
+                    <img src="galeria/Asistencia.png" class="icono" alt="Icono Asistencia">
                     <form id="formAsistencia" action="https://script.google.com/macros/s/AKfycbzXjkmmf3rxVNgkXoU-4InI6tMoDbpLC8bcqkzrLlUG_uTht9g8tl8AXaBH-457H7ZL/exec" method="POST">
                         <input type="hidden" id="nombre-oculto" name="nombre">
                         
@@ -77,7 +77,7 @@
             </div>
 
             <div class="app-bloque">
-                <img src="galeria/Imagen.png" class="app-icono">
+                <img src="galeria/Imagen.png" class="app-icono" alt="Icono App">
                 <p>
                     Descarga la App <br>
                     y únete a nuestro <br>
@@ -85,27 +85,25 @@
                 </p>
             </div>
 
-            <p class="titulo-cronologia">Horário</p>
-            <img src="galeria/Decoracion.png" class="decoracion">
+            <p class="titulo-cronologia">Horario</p> <img src="galeria/Decoracion.png" class="decoracion" alt="Decoración Cronología">
             
             <div class="cronologia">
                 <div class="bloque-izquierda">
                     <div class="evento">
-                        <img src="galeria/Ceremonia.png" class="icono-evento">
+                        <img src="galeria/Ceremonia.png" class="icono-evento" alt="Icono Ceremonia">
                         <p>20:00<br>Ceremonia</p>
                     </div>
                     <div class="evento">
-                        <img src="galeria/Banquete.png" class="icono-evento">
+                        <img src="galeria/Banquete.png" class="icono-evento" alt="Icono Banquete">
                         <p>22:15<br>Banquete</p>
                     </div>
                 </div>
                 <div class="bloque-derecha">
                     <div class="evento">
-                        <img src="galeria/Coctel.png" class="icono-evento">
-                        <p>20:45<br>Coctel</p>
-                    </div>
+                        <img src="galeria/Coctel.png" class="icono-evento" alt="Icono Cóctel">
+                        <p>20:45<br>Cóctel</p> </div>
                     <div class="evento">
-                        <img src="galeria/Fiesta.png" class="icono-evento">
+                        <img src="galeria/Fiesta.png" class="icono-evento" alt="Icono Fiesta">
                         <p>1:00<br>Fiesta</p>
                     </div>
                 </div>
@@ -119,12 +117,14 @@
         let nombre = params.get('nombre');
         const ubicacionElegida = params.get('ubicacion');
 
+        // 1. CAPITALIZAR EL NOMBRE
         if (nombre) {
             nombre = nombre.toLowerCase().split(' ').map(palabra => {
                 return palabra.charAt(0).toUpperCase() + palabra.slice(1);
             }).join(' ');
         }
 
+        // 2. APLICAR EL NOMBRE Y COMPROBAR ASISTENCIA
         if (nombre) {
             document.getElementById('nombre-invitado').innerText = nombre;
             document.getElementById('nombre-oculto').value = nombre;
@@ -141,6 +141,7 @@
             }
         }
 
+        // 3. DICCIONARIO DE UBICACIONES Y FECHAS
         const mapaUbicaciones = {
             "lomo": { 
                 nombre: "El Lomo", 
@@ -172,11 +173,13 @@
             document.getElementById('seccion-ubicacion').style.display = "flex";
         }
 
+        // 4. NAVEGACIÓN
         document.getElementById("pantalla1").onclick = () => {
             document.getElementById("pantalla1").style.display = "none";
             document.getElementById("pantalla2").style.display = "block";
         };
 
+        // 5. ENVÍO FORMULARIO A GOOGLE SHEETS
         const radios = document.querySelectorAll('input[name="asistencia"]');
         radios.forEach(radio => {
             radio.addEventListener('change', function() {
