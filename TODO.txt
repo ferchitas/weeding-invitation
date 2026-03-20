@@ -1,0 +1,10 @@
+despliegue
+guardar los datos en google sheets
+Capitalizar nombres
+si una persona va a las dos gestionarlo para que si cambia la ubicacion vuelva a salir la opcion de contestar 
+
+query param necesarios:
+
+a quien va dirijido (guardar en una pestaña u otra de sheets) x
+fecha x
+lugar x

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="invitation">
+
+        <section id="pantalla1">
+            <img class="fondo" src="galeria/Cerrada.png">
+            <p id="abrir">Hola <span id="nombre-invitado">amigo</span><br>Esta invitación es muy especial</p>
+            <img class="flecha" src="galeria/Flecha.png">
+        </section>
+
+        <section id="pantalla2">
+            <img class="fondo" src="galeria/Abierta.png">
+
+            <div class="nombres">
+                <h4>¡Nos Casamos!</h4>
+                <h1>Ikram <br>& <br>Fernando</h1>
+            </div>
+
+            <div class="ilustracion">
+                <img src="galeria/Flores1.png" alt="Flores decorativas">
+            </div>
+
+            <div class="fecha">
+                <h3 id="fecha-boda">25 · 07 · 2026</h3>
+            </div>
+
+            <div class="ilustracion2">
+                <img src="galeria/separador.png" alt="Flores decorativas 2">
+            </div>
+
+            <div class="bloque-secundario">
+                
+                <div id="seccion-ubicacion" class="item" style="display: none;">
+                    <img src="galeria/Lugar.png" class="icono">
+                    <p><a id="enlace-lugar" href="#" target="_blank"></a></p>
+                </div>
+
+                <div class="item">
+                    <img src="galeria/Hora.png" class="icono">
+                    <p>19:45</p>
+                </div>
+
+                <div class="item">
+                    <img src="galeria/Asistencia.png" class="icono">
+                    <form id="formAsistencia" action="https://script.google.com/macros/s/AKfycbzXjkmmf3rxVNgkXoU-4InI6tMoDbpLC8bcqkzrLlUG_uTht9g8tl8AXaBH-457H7ZL/exec" method="POST">
+                        <input type="hidden" id="nombre-oculto" name="nombre">
+                        
+                        <input type="hidden" id="ubicacion-oculta" name="ubicacion">
+                        
+                        <p class="pregunta-asistencia" id="texto-asistencia">Confírmanos tu asistencia:</p>
+                        <div class="opciones-radio" id="contenedor-radios">
+                            <label><input type="radio" name="asistencia" value="Si"> Sí</label>
+                            <label><input type="radio" name="asistencia" value="No"> No</label>
+                        </div>
+                        <button type="button" id="boton-detalles" style="display: none; background: none; border: 1px solid #295C48; color: #295C48; font-family: 'Averia Serif Libre', serif; font-size: 13px; padding: 5px 12px; border-radius: 8px; cursor: pointer; margin: 0 auto;">
+                            Ver horario del evento ➔
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="pantalla3">
+            <img class="fondo" src="galeria/Abierta2.png" alt="Fondo pantalla 3">
+
+            <div class="texto-pantalla3">
+                <h2>Te esperamos</h2>
+                <h4>Gracias por tu confirmación</h4>
+            </div>
+
+            <div class="app-bloque">
+                <img src="galeria/Imagen.png" class="app-icono">
+                <p>
+                    Descarga la App <br>
+                    y únete a nuestro <br>
+                    <a href="https://web.dotstheapp.com/a?group=2417508&dlBy=anaiberikram&code=8bk3OZhxmXGo&utm_source=guest&utm_medium=share&utm_campaign=guest_event_album&force_app=1">Álbum compartido</a>
+                </p>
+            </div>
+
+            <p class="titulo-cronologia">Horário</p>
+            <img src="galeria/Decoracion.png" class="decoracion">
+            
+            <div class="cronologia">
+                <div class="bloque-izquierda">
+                    <div class="evento">
+                        <img src="galeria/Ceremonia.png" class="icono-evento">
+                        <p>20:00<br>Ceremonia</p>
+                    </div>
+                    <div class="evento">
+                        <img src="galeria/Banquete.png" class="icono-evento">
+                        <p>22:15<br>Banquete</p>
+                    </div>
+                </div>
+                <div class="bloque-derecha">
+                    <div class="evento">
+                        <img src="galeria/Coctel.png" class="icono-evento">
+                        <p>20:45<br>Coctel</p>
+                    </div>
+                    <div class="evento">
+                        <img src="galeria/Fiesta.png" class="icono-evento">
+                        <p>1:00<br>Fiesta</p>
+                    </div>
+                </div>
+            </div>
+            <p class="final-texto">To be continued</p>
+        </section>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nombre = params.get('nombre');
+        const ubicacionElegida = params.get('ubicacion');
+
+        if (nombre) {
+            document.getElementById('nombre-invitado').innerText = nombre;
+            document.getElementById('nombre-oculto').value = nombre;
+
+            if (localStorage.getItem('asistencia_enviada_' + nombre) === 'true') {
+                document.getElementById("texto-asistencia").innerText = "¡Asistencia confirmada!";
+                document.getElementById("contenedor-radios").style.display = "none";
+                const btnDetalles = document.getElementById("boton-detalles");
+                btnDetalles.style.display = "block";
+                btnDetalles.onclick = () => {
+                    document.getElementById("pantalla2").style.display = "none";
+                    document.getElementById("pantalla3").style.display = "block";
+                };
+            }
+        }
+
+        const mapaUbicaciones = {
+            "lomo": { 
+                nombre: "El Lomo", 
+                enlace: "https://maps.app.goo.gl/6KUgfkeUe1qxci8m6",
+                fecha: "25 · 07 · 2026" 
+            },
+            "casa_rural": { 
+                nombre: "La Casa Rural", 
+                enlace: "",
+                fecha: "08 · 08 · 2026" 
+            }
+        };
+
+        if (ubicacionElegida && mapaUbicaciones[ubicacionElegida]) {
+            const datos = mapaUbicaciones[ubicacionElegida];
+            
+            // LA OTRA MITAD DE LA MAGIA: Rellenar el campo oculto
+            document.getElementById('ubicacion-oculta').value = ubicacionElegida;
+
+            document.getElementById('fecha-boda').innerText = datos.fecha;
+
+            const link = document.getElementById('enlace-lugar');
+            link.innerText = datos.nombre;
+            if (datos.enlace) {
+                link.href = datos.enlace;
+            } else {
+                link.removeAttribute("href");
+                link.style.textDecoration = "none";
+                link.style.cursor = "default";
+            }
+            document.getElementById('seccion-ubicacion').style.display = "flex";
+        }
+
+        document.getElementById("abrir").onclick = () => {
+            document.getElementById("pantalla1").style.display = "none";
+            document.getElementById("pantalla2").style.display = "block";
+        };
+
+        const radios = document.querySelectorAll('input[name="asistencia"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const form = document.getElementById("formAsistencia");
+                const texto = document.getElementById("texto-asistencia");
+                const contenedor = document.getElementById("contenedor-radios");
+
+                texto.innerText = "Enviando...";
+                contenedor.style.display = "none";
+
+                fetch(form.action, {
+                    method: "POST",
+                    body: new FormData(form)
+                }).then(res => {
+                    if (nombre) localStorage.setItem('asistencia_enviada_' + nombre, 'true');
+                    document.getElementById("pantalla2").style.display = "none";
+                    document.getElementById("pantalla3").style.display = "block";
+                }).catch(error => {
+                    // Google a veces da error de CORS aunque haya guardado el dato, 
+                    // así que lo damos por bueno de todas formas.
+                    if (nombre) localStorage.setItem('asistencia_enviada_' + nombre, 'true');
+                    document.getElementById("pantalla2").style.display = "none";
+                    document.getElementById("pantalla3").style.display = "block";
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+/*#pantalla1, #pantalla2 {
+  display: none !important;
+}
+
+#pantalla3 {
+  display: block !important;
+}*/
+body{
+  margin:0;
+  padding:0;
+  background:#eeecff;
+  font-family:Beth Ellen;
+  color:#295C48;
+}
+
+/* contenedor */
+.invitation{
+  width:100%;
+  max-width:412px;
+  aspect-ratio:9/16;
+  margin:auto;
+  background:rgb(255, 249, 230);
+  overflow:hidden;
+}
+
+/* PANTALLA 1 */
+#pantalla1 img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+#pantalla1{position:relative;}
+#abrir{
+  position:absolute;
+  top:295px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:13px;
+  text-align:center;
+  white-space: nowrap;
+}
+.flecha{
+  position:absolute;
+  top:370px;
+  left:50%;
+  transform:translateX(-50%);
+  width:25px !important;
+  height:25px !important;
+}
+
+/* PANTALLA 2 */
+#pantalla2{
+  display:none;
+  position: relative;
+  width:100%;
+  height:100%;
+}
+
+/* fondo */
+#pantalla2 .fondo{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  z-index:0;
+}
+
+/* nombres */
+.nombres{
+  position:absolute;
+  top:15%;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  width:100%;
+}
+.nombres h1{ font-size:26px; }
+
+.nombres h4,
+.nombres h1 {
+  margin: 0;
+}
+.nombres h4 {
+  margin-bottom: 4px;
+}
+
+/* ilustración 1 (Restaurado a tu 40%) */
+.ilustracion{
+  position:absolute;
+  top:42%;
+  left:50%;
+  transform:translateX(-50%);
+  width:73%;
+  text-align:center;
+}
+.ilustracion img{ width:100%; height:auto; }
+
+/* fecha (Restaurado a tu 53%) */
+.fecha{
+  position:absolute;
+  top:57%;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+}
+.fecha h3{ font-size:18px; margin: 0; }
+
+/* ilustración 2 (SEPARADOR HECHO MÁS PEQUEÑO) */
+.ilustracion2{
+  position:absolute;
+  top:66%; /* Justo entre la fecha y el bloque inferior */
+  left:50%;
+  transform:translateX(-50%);
+  width:8%; /* Mucho más pequeño, no a tamaño real */
+  text-align:center;
+  z-index: 1;
+}
+.ilustracion2 img{ width:100%; height:auto; }
+
+/* bloque inferior general (Restaurado a tus medidas originales de left y width) */
+.bloque-secundario{
+  font-family:'Averia Serif Libre', serif;
+  position:absolute;
+  top: 73%; /* Sustituido bottom por top para que encaje perfecto debajo del separador */
+  left: 20%; /* RESTAURADO: Desplazado a tu gusto */
+  width: 60%; /* RESTAURADO: Tu ancho original */
+  display:flex;
+  flex-direction:column;
+  gap:0px; /* RESTAURADO: Tu gap original */
+}
+
+/* Estilo general para todos los items (HORA, FORMULARIO, etc.) */
+.bloque-secundario .item{
+  display:flex;
+  align-items:flex-start;
+  gap: 10px; 
+  margin: 0;
+  padding: 0;
+}
+
+.bloque-secundario .icono{
+  width:36px;
+  height:36px;
+  object-fit:contain;
+  margin-top:4px;
+}
+
+/* ==============================================================
+   AJUSTE ESPECÍFICO SÓLO PARA LA UBICACIÓN (#seccion-ubicacion)
+============================================================== */
+#seccion-ubicacion.item {
+  align-items: center !important;
+  flex-direction: row !important;
+}
+
+#seccion-ubicacion.item .icono {
+  margin-top: 0 !important;
+  flex-shrink: 0;
+}
+
+#seccion-ubicacion.item p {
+  margin: 0 !important;
+  padding: 0;
+  line-height: 1;
+}
+/* ============================================================== */
+
+.bloque-secundario a{
+  color:#295C48;
+  text-decoration:none;
+}
+
+.bloque-secundario a:hover{ 
+  text-decoration:underline; 
+}
+
+.bloque-secundario img{ height:auto; width:auto; }
+
+img{ width:100%; height:auto; }
+
+#formAsistencia input[type="text"],
+#formAsistencia textarea {
+    width: 100%;
+    max-width: calc(100% - 46px);
+    height: 30px;
+    box-sizing: border-box;
+    font-family: 'Averia Serif Libre', serif;
+    padding: 5px;
+    resize: none;
+}
+#formAsistencia button {
+  transform: translate(-27px, -6px);
+}
+.boton-centro {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* PANTALLA 3 */
+#pantalla3{
+  display:none;
+  position:relative;
+  width:100%;
+  height:100%;
+}
+.texto-pantalla3 h2 {
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.texto-pantalla3 h4 {
+  font-size:16px;
+}
+#formAsistencia button {
+  background-color: #295C48;
+  color: #eeecff;
+  font-family: 'Averia Serif Libre', serif;
+  font-size: 12px;
+  padding: 6px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#pantalla3 .fondo {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  z-index:0;
+}
+
+.texto-pantalla3 {
+  position:absolute;
+  top:25%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  text-align:center;
+  z-index:1;
+  color:#b86831;
+  padding:0 10px; 
+}
+.texto-pantalla3 h1 {
+  font-size:22px;
+  margin-bottom:2px;
+  font-family:'Beth Ellen';
+}
+.texto-pantalla3 h4 {
+  font-size:16px;
+  line-height:1.2;
+  margin-top:0; 
+  white-space: nowrap;
+  font-family:'Averia Serif Libre', serif;
+}
+
+.app-bloque{
+  position:absolute;
+  top:35%;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.app-bloque p{
+  margin:0;
+  font-size:16px;
+  line-height:1.2;
+  text-align:left;
+  font-family:'Averia Serif Libre', serif;
+}
+.app-bloque a{
+  color:#295C48;
+  text-decoration:none;
+}
+.app-bloque a:hover{
+  text-decoration:underline;
+}
+.app-icono{
+  width:36px;
+  height:auto;
+}
+
+.bloque-izquierda {
+  position: absolute;
+  top: 50%;
+  left: 27%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.bloque-derecha {
+  position: absolute;
+  top: 60%;
+  right: 27%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.evento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.icono-evento {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 4px;
+}
+
+.evento p {
+  font-size: 14px;
+  line-height: 1.2;
+  margin: 0;
+  font-family: 'Averia Serif Libre', serif;
+  color: #b86831;
+}
+.titulo-evento {
+  font-size: 16px;
+  color: #b86831;
+  margin-bottom: 4px;
+  font-family: 'Beth Ellen';
+}
+.titulo-cronologia {
+  position: absolute;
+  top: 43%;   
+  left: 35%;  
+  transform: translateX(-50%); 
+  font-size: 18px; 
+  font-family: 'Beth Ellen'; 
+  color: #b86831;
+  text-align: center;
+}
+.decoracion {
+  position: absolute;
+  top: 72%; 
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  width: 45px;
+  height: auto;
+  z-index: 1;
+}
+.final-texto {
+  position: absolute;
+  bottom: 1%; 
+  left: 50%;
+  transform: translateX(-50%); 
+  font-size: 14px;
+  font-family: 'beth ellen';
+  color: #b86831;
+  text-align: center;
+}
