@@ -55,10 +55,7 @@ img.fondo{
 /* ------------------ PANTALLA 1 ------------------ */
 #abrir{
   position:absolute;
-  
-  /* NUEVA FÓRMULA MÁS ESTRICTA */
   top: max(36%, 300px); 
-  
   left:50%;
   transform:translateX(-50%);
   font-size:13px;
@@ -70,7 +67,7 @@ img.fondo{
 /* ------------------ PANTALLA 2 ------------------ */
 .nombres{
   position:absolute;
-  top:15%;
+  top: max(15%, 115px);
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -89,7 +86,8 @@ img.fondo{
 
 .ilustracion{
   position:absolute;
-  top:42%;
+  /* Muro en 220px */
+  top: max(42%, 320px);
   left:50%;
   transform:translateX(-50%);
   width:73%;
@@ -100,7 +98,8 @@ img.fondo{
 
 .fecha{
   position:absolute;
-  top:57%;
+  /* Muro en 430px */
+  top: max(57%, 430px); 
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -110,7 +109,8 @@ img.fondo{
 
 .ilustracion2{
   position:absolute;
-  top:66%; 
+  /* Muro en 490px */
+  top: max(66%, 490px); 
   left:50%;
   transform:translateX(-50%);
   width:8%; 
@@ -365,9 +365,8 @@ img{ width:100%; height:auto; }
 ========================================================= */
 @media (max-height: 700px) {
   
-  .ilustracion { top: 38%; width: 65%; }
-  .fecha { top: 54%; }
-  .ilustracion2 { top: 62%; }
+  /* Encogemos un poco la ilustración principal en móviles cortos */
+  .ilustracion { width: 65%; }
   
   .bloque-secundario { 
     transform: scale(0.9); 
