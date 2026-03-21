@@ -3,7 +3,7 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100dvh; /* <-- CAMBIO: dvh (Dynamic Viewport Height) evita que la barra del navegador corte el diseño */
+  height: 100dvh;
   overflow: hidden; 
   overscroll-behavior: none; 
   background: #dcd6c8; 
@@ -18,7 +18,7 @@ html, body {
 .invitation{
   width:100%;
   max-width:412px;
-  height: 100dvh; /* <-- CAMBIO: dvh */
+  height: 100dvh; 
   max-height: 850px; 
   background:rgb(255, 249, 230);
   position: relative;
@@ -55,7 +55,10 @@ img.fondo{
 /* ------------------ PANTALLA 1 ------------------ */
 #abrir{
   position:absolute;
-  top: 35%; 
+  
+  /* NUEVA FÓRMULA MÁS ESTRICTA */
+  top: max(36%, 300px); 
+  
   left:50%;
   transform:translateX(-50%);
   font-size:13px;
@@ -119,7 +122,6 @@ img.fondo{
 .bloque-secundario{
   font-family:'Averia Serif Libre', serif;
   position:absolute;
-  /* <-- CAMBIO: Quitamos el 'top' y lo anclamos desde abajo para que NUNCA se corte en móviles cortos */
   bottom: 3%; 
   left: 20%; 
   width: 60%; 
@@ -331,7 +333,7 @@ img{ width:100%; height:auto; }
 /* ------------------ PANTALLA 4 (NO) ------------------ */
 .texto-no-arriba {
   position:absolute;
-  top: 35%; 
+  top: 25%; 
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
@@ -345,7 +347,7 @@ img{ width:100%; height:auto; }
 
 .texto-no-abajo {
   position:absolute;
-  top: 60%; 
+  top: 70%; 
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
@@ -362,18 +364,17 @@ img{ width:100%; height:auto; }
    SALVAVIDAS PARA MÓVILES BAJITOS (Menos de 700px de alto)
 ========================================================= */
 @media (max-height: 700px) {
+  
   .ilustracion { top: 38%; width: 65%; }
   .fecha { top: 54%; }
   .ilustracion2 { top: 62%; }
   
-  /* Encogemos un poco el bloque de la encuesta para que no pise nada */
   .bloque-secundario { 
     transform: scale(0.9); 
     transform-origin: bottom left; 
     bottom: 2%; 
   }
 
-  /* Subimos un poco la cronología en la pantalla 3 */
   .bloque-izquierda { top: 51%; }
   .bloque-derecha { top: 61%; }
   .decoracion { top: 75%; }
