@@ -55,16 +55,11 @@ img.fondo{
 /* ------------------ PANTALLA 1 ------------------ */
 #abrir{
   position:absolute;
-  
-  /* EL CANDADO PERFECTO:
-     1. Tope hacia arriba: 269px (se congela al llegar a los 369px de ancho).
-     2. Lapa dinámica: 72.8vw (se mueve suavemente entre los dos topes).
-     3. Tope hacia abajo: 300px (posición original en pantalla completa). */
-  top: clamp(269px, 72.8vw, 300px); 
-  
+  /* ROCA ABSOLUTA: Ni porcentajes ni vw. Fijo en píxeles. */
+  top: 300px; 
   left:50%;
   transform:translateX(-50%);
-  font-size: clamp(9px, 3.15vw, 13px);
+  font-size:13px;
   text-align:center;
   white-space: nowrap;
   z-index: 1;
@@ -73,7 +68,8 @@ img.fondo{
 /* ------------------ PANTALLA 2 ------------------ */
 .nombres{
   position:absolute;
-  top: max(15%, 111px); /* Congela en 745px */
+  /* Permite subir un poco más para dejar hueco */
+  top: max(15%, 100px); 
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -92,7 +88,8 @@ img.fondo{
 
 .ilustracion{
   position:absolute;
-  top: max(42%, 313px); /* Congela en 745px */
+  /* Se aprieta más contra los nombres */
+  top: max(42%, 280px); 
   left:50%;
   transform:translateX(-50%);
   width:73%;
@@ -103,7 +100,8 @@ img.fondo{
 
 .fecha{
   position:absolute;
-  top: max(57%, 424px);  /* Congela en 745px */
+  /* Se aprieta más contra la ilustración */
+  top: max(57%, 330px); 
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -113,7 +111,8 @@ img.fondo{
 
 .ilustracion2{
   position:absolute;
-  top: max(66%, 491px);  /* Congela en 745px */
+  /* Se aprieta más contra la fecha */
+  top: max(66%, 370px); 
   left:50%;
   transform:translateX(-50%);
   width:8%; 
