@@ -15,12 +15,12 @@
 <body>
     <div class="invitation">
 
-        <section id="pantalla1" style="cursor: pointer;">
+        <section id="pantalla1" style="cursor: pointer; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             <img class="fondo" src="galeria/Cerrada.png" alt="Fondo Pantalla 1">
             <p id="abrir">Hola <span id="nombre-invitado">amigo</span><br>Esta invitación es muy especial</p>
         </section>
 
-        <section id="pantalla2">
+        <section id="pantalla2" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             <img class="fondo" src="galeria/Abierta.png" alt="Fondo Pantalla 2">
 
             <div class="nombres">
@@ -71,7 +71,7 @@
             </div>
         </section>
 
-        <section id="pantalla3">
+        <section id="pantalla3" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             <img class="fondo" src="galeria/Abierta2.png" alt="Fondo pantalla 3">
 
             <div class="texto-pantalla3">
@@ -116,9 +116,9 @@
             <p class="final-texto">To be continued</p>
         </section>
 
-        <section id="pantalla-no">
+        <section id="pantalla-no" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             <img class="fondo" src="galeria/Abierta2.png" alt="Fondo pantalla no">
-            <h2 class="texto-no-arriba">Uff, qué pena...</h2>
+            <h2 class="texto-no-arriba">¡Qué pena!</h2>
             <h4 class="texto-no-abajo">Te echaremos de menos,<br>gracias por avisar.</h4>
         </section>
 
@@ -129,14 +129,12 @@
         let nombre = params.get('nombre');
         const ubicacionElegida = params.get('ubicacion');
 
-        // 1. CAPITALIZAR EL NOMBRE
         if (nombre) {
             nombre = nombre.toLowerCase().split(' ').map(palabra => {
                 return palabra.charAt(0).toUpperCase() + palabra.slice(1);
             }).join(' ');
         }
 
-        // 2. APLICAR EL NOMBRE Y COMPROBAR ASISTENCIA PREVIA
         if (nombre) {
             document.getElementById('nombre-invitado').innerText = nombre;
             document.getElementById('nombre-oculto').value = nombre;
@@ -164,7 +162,6 @@
             }
         }
 
-        // 3. DICCIONARIO DE UBICACIONES Y FECHAS
         const mapaUbicaciones = {
             "lomo": { 
                 nombre: "El Lomo", 
@@ -196,20 +193,18 @@
             document.getElementById('seccion-ubicacion').style.display = "flex";
         }
 
-        // 4. NAVEGACIÓN
         document.getElementById("pantalla1").onclick = () => {
             document.getElementById("pantalla1").style.display = "none";
             document.getElementById("pantalla2").style.display = "block";
         };
 
-        // 5. ENVÍO FORMULARIO A GOOGLE SHEETS
         const radios = document.querySelectorAll('input[name="asistencia"]');
         radios.forEach(radio => {
             radio.addEventListener('change', function() {
                 const form = document.getElementById("formAsistencia");
                 const texto = document.getElementById("texto-asistencia");
                 const contenedor = document.getElementById("contenedor-radios");
-                const valorSeleccionado = this.value; // Capturamos si es "Si" o "No"
+                const valorSeleccionado = this.value;
 
                 texto.innerText = "Enviando...";
                 contenedor.style.display = "none";
@@ -223,7 +218,6 @@
                     procesarRespuesta(valorSeleccionado);
                 });
 
-                // Función auxiliar para saber a qué pantalla enviarlos tras guardar
                 function procesarRespuesta(valor) {
                     if (nombre && ubicacionElegida) {
                         localStorage.setItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida, valor);

@@ -1,40 +1,29 @@
-/* body contenedor global */
-body{
-  margin:0;
-  padding:0;
-  background:#dcd6c8; /* Color sutil de fondo para cuando se abra en ordenador */
-  font-family:Beth Ellen;
-  color:#295C48;
-  display: flex; /* Centra la invitación vertical y horizontalmente en pantallas grandes */
+/* BLOQUEO TOTAL DE SCROLL PARA COMPORTAMIENTO TIPO APP */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden; /* Corta cualquier scroll rebelde */
+  overscroll-behavior: none; /* Evita el efecto rebote hacia arriba/abajo en iPhone */
+  background: #dcd6c8; 
+  font-family: Beth Ellen;
+  color: #295C48;
+  display: flex; 
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
 }
 
 /* CAJA PRINCIPAL DE LA INVITACIÓN */
 .invitation{
   width:100%;
   max-width:412px;
-  height: 100vh; /* Altura del móvil */
-  max-height: 850px; /* TOPE DE ALTURA: evita que se desproporcione en iPad o Escritorio */
+  height: 100vh; 
+  max-height: 850px; 
   background:rgb(255, 249, 230);
   position: relative;
-  overflow: hidden; /* CRUCIAL: esconde lo que sobra para mantener la forma de móvil */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombrea la caja en el ordenador */
-}
-
-/* BASE COMÚN PARA TODAS LAS PANTALLAS */
-#pantalla1, #pantalla2, #pantalla3, #pantalla-no {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Ocultamos las secundarias de inicio */
-#pantalla2, #pantalla3, #pantalla-no {
-  display: none;
+  overflow: hidden; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
 }
 
 /* Estilo común de imágenes de fondo */
@@ -44,8 +33,8 @@ img.fondo{
   left:0;
   width:100%;
   height:100%;
-  object-fit:cover; /* Cubre toda la caja sin deformar la foto */
-  object-position:top center; /* Se ancla siempre a la parte de arriba */
+  object-fit:cover; 
+  object-position:top center; 
   z-index:0;
 }
 
@@ -327,7 +316,7 @@ img{ width:100%; height:auto; }
 /* ------------------ PANTALLA 4 (NO) ------------------ */
 .texto-no-arriba {
   position:absolute;
-  top: 25%; /* <-- AJUSTA ESTE NÚMERO PARA MOVER EL TÍTULO "¡Qué pena!" */
+  top: 25%; 
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
@@ -341,7 +330,7 @@ img{ width:100%; height:auto; }
 
 .texto-no-abajo {
   position:absolute;
-  top: 70%; /* <-- AJUSTA ESTE NÚMERO PARA MOVER EL TEXTO "Te echaremos de menos..." */
+  top: 70%; 
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
