@@ -3,9 +3,9 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100vh;
-  overflow: hidden; /* Corta cualquier scroll rebelde */
-  overscroll-behavior: none; /* Evita el efecto rebote hacia arriba/abajo en iPhone */
+  height: 100dvh; /* <-- CAMBIO: dvh (Dynamic Viewport Height) evita que la barra del navegador corte el diseño */
+  overflow: hidden; 
+  overscroll-behavior: none; 
   background: #dcd6c8; 
   font-family: Beth Ellen;
   color: #295C48;
@@ -18,12 +18,26 @@ html, body {
 .invitation{
   width:100%;
   max-width:412px;
-  height: 100vh; 
+  height: 100dvh; /* <-- CAMBIO: dvh */
   max-height: 850px; 
   background:rgb(255, 249, 230);
   position: relative;
   overflow: hidden; 
   box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+}
+
+/* BASE COMÚN PARA TODAS LAS PANTALLAS */
+#pantalla1, #pantalla2, #pantalla3, #pantalla-no {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ocultamos las secundarias de inicio */
+#pantalla2, #pantalla3, #pantalla-no {
+  display: none;
 }
 
 /* Estilo común de imágenes de fondo */
@@ -105,7 +119,8 @@ img.fondo{
 .bloque-secundario{
   font-family:'Averia Serif Libre', serif;
   position:absolute;
-  top: 73%; 
+  /* <-- CAMBIO: Quitamos el 'top' y lo anclamos desde abajo para que NUNCA se corte en móviles cortos */
+  bottom: 3%; 
   left: 20%; 
   width: 60%; 
   display:flex;
@@ -316,7 +331,7 @@ img{ width:100%; height:auto; }
 /* ------------------ PANTALLA 4 (NO) ------------------ */
 .texto-no-arriba {
   position:absolute;
-  top: 25%; 
+  top: 35%; 
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
@@ -330,7 +345,7 @@ img{ width:100%; height:auto; }
 
 .texto-no-abajo {
   position:absolute;
-  top: 70%; 
+  top: 60%; 
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
@@ -341,4 +356,25 @@ img{ width:100%; height:auto; }
   margin:0; 
   white-space: nowrap;
   font-family:'Averia Serif Libre', serif;
+}
+
+/* =========================================================
+   SALVAVIDAS PARA MÓVILES BAJITOS (Menos de 700px de alto)
+========================================================= */
+@media (max-height: 700px) {
+  .ilustracion { top: 38%; width: 65%; }
+  .fecha { top: 54%; }
+  .ilustracion2 { top: 62%; }
+  
+  /* Encogemos un poco el bloque de la encuesta para que no pise nada */
+  .bloque-secundario { 
+    transform: scale(0.9); 
+    transform-origin: bottom left; 
+    bottom: 2%; 
+  }
+
+  /* Subimos un poco la cronología en la pantalla 3 */
+  .bloque-izquierda { top: 51%; }
+  .bloque-derecha { top: 61%; }
+  .decoracion { top: 75%; }
 }
