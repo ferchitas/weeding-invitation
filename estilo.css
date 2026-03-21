@@ -1,42 +1,58 @@
-/* body y contenedor - AJUSTE ADAPTATIVO */
+/* body contenedor global */
 body{
   margin:0;
   padding:0;
-  background:rgb(255, 249, 230);
+  background:#dcd6c8; /* Color sutil de fondo para cuando se abra en ordenador */
   font-family:Beth Ellen;
   color:#295C48;
+  display: flex; /* Centra la invitación vertical y horizontalmente en pantallas grandes */
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
+/* CAJA PRINCIPAL DE LA INVITACIÓN */
 .invitation{
   width:100%;
-  max-width:412px; /* Mantiene un ancho máximo para escritorio */
-  margin:auto;
+  max-width:412px;
+  height: 100vh; /* Altura del móvil */
+  max-height: 850px; /* TOPE DE ALTURA: evita que se desproporcione en iPad o Escritorio */
   background:rgb(255, 249, 230);
-  /* ELIMINADO: aspect-ratio:9/16 y overflow:hidden */
+  position: relative;
+  overflow: hidden; /* CRUCIAL: esconde lo que sobra para mantener la forma de móvil */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombrea la caja en el ordenador */
 }
 
-/* PANTALLA 1 - AJUSTE ADAPTATIVO */
-#pantalla1{
-  position:relative;
-  width: 100%;
-  height: 100vh; /* Ocupa el 100% de la altura de la pantalla del móvil */
-}
-
-/* Fondo común para las 3 pantallas - AJUSTE ADAPTATIVO */
-#pantalla1 img.fondo, #pantalla2 img.fondo, #pantalla3 img.fondo {
+/* BASE COMÚN PARA TODAS LAS PANTALLAS */
+#pantalla1, #pantalla2, #pantalla3, #pantalla-no {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* SE ADAPTA: Cubre la pantalla sin deformarse */
-  object-position: top center; /* Centrado desde arriba */
-  z-index: 0;
 }
 
+/* Ocultamos las secundarias de inicio */
+#pantalla2, #pantalla3, #pantalla-no {
+  display: none;
+}
+
+/* Estilo común de imágenes de fondo */
+img.fondo{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover; /* Cubre toda la caja sin deformar la foto */
+  object-position:top center; /* Se ancla siempre a la parte de arriba */
+  z-index:0;
+}
+
+/* ------------------ PANTALLA 1 ------------------ */
 #abrir{
   position:absolute;
-  top: 45%; 
+  top: 35%; 
   left:50%;
   transform:translateX(-50%);
   font-size:13px;
@@ -45,15 +61,7 @@ body{
   z-index: 1;
 }
 
-/* PANTALLA 2 - AJUSTE ADAPTATIVO */
-#pantalla2{
-  display:none;
-  position: relative;
-  width:100%;
-  height: 100vh; /* Ocupa el 100% de la altura de la pantalla del móvil */
-}
-
-/* nombres */
+/* ------------------ PANTALLA 2 ------------------ */
 .nombres{
   position:absolute;
   top:15%;
@@ -73,7 +81,6 @@ body{
   margin-bottom: 4px;
 }
 
-/* ilustración 1 */
 .ilustracion{
   position:absolute;
   top:42%;
@@ -85,7 +92,6 @@ body{
 }
 .ilustracion img{ width:100%; height:auto; }
 
-/* fecha */
 .fecha{
   position:absolute;
   top:57%;
@@ -96,7 +102,6 @@ body{
 }
 .fecha h3{ font-size:18px; margin: 0; }
 
-/* ilustración 2 (SEPARADOR) */
 .ilustracion2{
   position:absolute;
   top:66%; 
@@ -108,7 +113,6 @@ body{
 }
 .ilustracion2 img{ width:100%; height:auto; }
 
-/* bloque inferior general */
 .bloque-secundario{
   font-family:'Averia Serif Libre', serif;
   position:absolute;
@@ -121,7 +125,6 @@ body{
   z-index: 1;
 }
 
-/* Estilo general para todos los items */
 .bloque-secundario .item{
   display:flex;
   align-items:flex-start;
@@ -137,37 +140,31 @@ body{
   margin-top:4px;
 }
 
-/* Ajustes específicos para ubicación */
 #seccion-ubicacion.item {
   align-items: center !important;
   flex-direction: row !important;
 }
-
 #seccion-ubicacion.item .icono {
   margin-top: 0 !important;
   flex-shrink: 0;
 }
-
 #seccion-ubicacion.item p {
   margin: 0 !important;
   padding: 0;
   line-height: 1;
 }
 
-/* ENLACES - AÑADIDO SUBRAYADO */
 .invitation a{
   color:#295C48;
-  text-decoration: underline; /* AÑADIDO: Subrayado activado */
+  text-decoration: underline; 
 }
-
 .invitation a:hover{ 
-  color: #1e4536; /* Oscurecimiento al pasar el ratón */
+  color: #1e4536; 
 }
 
 .bloque-secundario img{ height:auto; width:auto; }
 img{ width:100%; height:auto; }
 
-/* FORMULARIO */
 #formAsistencia input[type="text"],
 #formAsistencia textarea {
     width: 100%;
@@ -190,12 +187,9 @@ img{ width:100%; height:auto; }
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
-/* Efecto hover oscurecido para el botón */
 #formAsistencia button:hover {
   background-color: #1e4536;
 }
-
 .boton-centro {
   display: flex;
   justify-content: center;
@@ -203,22 +197,7 @@ img{ width:100%; height:auto; }
   width: 100%;
 }
 
-/* PANTALLA 3 - AJUSTE ADAPTATIVO */
-#pantalla3{
-  display:none;
-  position:relative;
-  width:100%;
-  height: 100vh; /* Ocupa el 100% de la altura de la pantalla del móvil */
-}
-.texto-pantalla3 h2 {
-  font-size:22px;
-  margin-bottom:8px;
-}
-
-.texto-pantalla3 h4 {
-  font-size:16px;
-}
-
+/* ------------------ PANTALLA 3 (SÍ) ------------------ */
 .texto-pantalla3 {
   position:absolute;
   top:25%;
@@ -229,10 +208,9 @@ img{ width:100%; height:auto; }
   color:#b86831;
   padding:0 10px; 
 }
-.texto-pantalla3 h1 {
+.texto-pantalla3 h2 {
   font-size:22px;
-  margin-bottom:2px;
-  font-family:'Beth Ellen';
+  margin-bottom:8px;
 }
 .texto-pantalla3 h4 {
   font-size:16px;
@@ -344,4 +322,34 @@ img{ width:100%; height:auto; }
   color: #b86831;
   text-align: center;
   z-index: 1;
+}
+
+/* ------------------ PANTALLA 4 (NO) ------------------ */
+.texto-no-arriba {
+  position:absolute;
+  top: 25%; /* <-- AJUSTA ESTE NÚMERO PARA MOVER EL TÍTULO "¡Qué pena!" */
+  left:50%;
+  transform:translate(-50%, -50%);
+  text-align:center;
+  z-index:1;
+  color:#b86831;
+  font-size:26px;
+  margin:0;
+  font-family: 'Beth Ellen';
+  width: 100%;
+}
+
+.texto-no-abajo {
+  position:absolute;
+  top: 70%; /* <-- AJUSTA ESTE NÚMERO PARA MOVER EL TEXTO "Te echaremos de menos..." */
+  left:50%;
+  transform:translate(-50%, -50%);
+  text-align:center;
+  z-index:1;
+  color:#b86831;
+  font-size:18px;
+  line-height:1.4;
+  margin:0; 
+  white-space: nowrap;
+  font-family:'Averia Serif Libre', serif;
 }

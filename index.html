@@ -7,6 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
+    
+    <link rel="preload" as="image" href="galeria/Cerrada.png">
+    <link rel="preload" as="image" href="galeria/Abierta.png">
+    <link rel="preload" as="image" href="galeria/Abierta2.png">
 </head>
 <body>
     <div class="invitation">
@@ -52,7 +56,6 @@
                     <img src="galeria/Asistencia.png" class="icono" alt="Icono Asistencia">
                     <form id="formAsistencia" action="https://script.google.com/macros/s/AKfycbzXjkmmf3rxVNgkXoU-4InI6tMoDbpLC8bcqkzrLlUG_uTht9g8tl8AXaBH-457H7ZL/exec" method="POST">
                         <input type="hidden" id="nombre-oculto" name="nombre">
-                        
                         <input type="hidden" id="ubicacion-oculta" name="ubicacion">
                         
                         <p class="pregunta-asistencia" id="texto-asistencia">Confírmanos tu asistencia:</p>
@@ -61,7 +64,7 @@
                             <label><input type="radio" name="asistencia" value="No"> No</label>
                         </div>
                         <button type="button" id="boton-detalles" style="display: none; background: none; border: 1px solid #295C48; color: #295C48; font-family: 'Averia Serif Libre', serif; font-size: 13px; padding: 5px 12px; border-radius: 8px; cursor: pointer; margin: 0 auto;">
-                            Ver horario del evento ➔
+                            Ver detalles ➔
                         </button>
                     </form>
                 </div>
@@ -85,7 +88,8 @@
                 </p>
             </div>
 
-            <p class="titulo-cronologia">Horario</p> <img src="galeria/Decoracion.png" class="decoracion" alt="Decoración Cronología">
+            <p class="titulo-cronologia">Horario</p>
+            <img src="galeria/Decoracion.png" class="decoracion" alt="Decoración Cronología">
             
             <div class="cronologia">
                 <div class="bloque-izquierda">
@@ -101,7 +105,8 @@
                 <div class="bloque-derecha">
                     <div class="evento">
                         <img src="galeria/Coctel.png" class="icono-evento" alt="Icono Cóctel">
-                        <p>20:45<br>Cóctel</p> </div>
+                        <p>20:45<br>Cóctel</p>
+                    </div>
                     <div class="evento">
                         <img src="galeria/Fiesta.png" class="icono-evento" alt="Icono Fiesta">
                         <p>1:00<br>Fiesta</p>
@@ -110,6 +115,13 @@
             </div>
             <p class="final-texto">To be continued</p>
         </section>
+
+        <section id="pantalla-no">
+            <img class="fondo" src="galeria/Abierta2.png" alt="Fondo pantalla no">
+            <h2 class="texto-no-arriba">Uff, qué pena...</h2>
+            <h4 class="texto-no-abajo">Te echaremos de menos,<br>gracias por avisar.</h4>
+        </section>
+
     </div>
 
     <script>
@@ -124,20 +136,31 @@
             }).join(' ');
         }
 
-        // 2. APLICAR EL NOMBRE Y COMPROBAR ASISTENCIA
+        // 2. APLICAR EL NOMBRE Y COMPROBAR ASISTENCIA PREVIA
         if (nombre) {
             document.getElementById('nombre-invitado').innerText = nombre;
             document.getElementById('nombre-oculto').value = nombre;
 
-            if (ubicacionElegida && localStorage.getItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida) === 'true') {
-                document.getElementById("texto-asistencia").innerText = "¡Asistencia confirmada!";
+            const asistenciaGuardada = localStorage.getItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida);
+            if (ubicacionElegida && asistenciaGuardada) {
+                document.getElementById("texto-asistencia").innerText = asistenciaGuardada === 'Si' ? "¡Asistencia confirmada!" : "Asistencia declinada";
                 document.getElementById("contenedor-radios").style.display = "none";
                 const btnDetalles = document.getElementById("boton-detalles");
                 btnDetalles.style.display = "block";
-                btnDetalles.onclick = () => {
-                    document.getElementById("pantalla2").style.display = "none";
-                    document.getElementById("pantalla3").style.display = "block";
-                };
+                
+                if (asistenciaGuardada === 'Si') {
+                    btnDetalles.innerText = "Ver horario del evento ➔";
+                    btnDetalles.onclick = () => {
+                        document.getElementById("pantalla2").style.display = "none";
+                        document.getElementById("pantalla3").style.display = "block";
+                    };
+                } else {
+                    btnDetalles.innerText = "Ver mensaje ➔";
+                    btnDetalles.onclick = () => {
+                        document.getElementById("pantalla2").style.display = "none";
+                        document.getElementById("pantalla-no").style.display = "block";
+                    };
+                }
             }
         }
 
@@ -186,6 +209,7 @@
                 const form = document.getElementById("formAsistencia");
                 const texto = document.getElementById("texto-asistencia");
                 const contenedor = document.getElementById("contenedor-radios");
+                const valorSeleccionado = this.value; // Capturamos si es "Si" o "No"
 
                 texto.innerText = "Enviando...";
                 contenedor.style.display = "none";
@@ -194,18 +218,23 @@
                     method: "POST",
                     body: new FormData(form)
                 }).then(res => {
-                    if (nombre && ubicacionElegida) {
-                        localStorage.setItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida, 'true');
-                    }
-                    document.getElementById("pantalla2").style.display = "none";
-                    document.getElementById("pantalla3").style.display = "block";
+                    procesarRespuesta(valorSeleccionado);
                 }).catch(error => {
+                    procesarRespuesta(valorSeleccionado);
+                });
+
+                // Función auxiliar para saber a qué pantalla enviarlos tras guardar
+                function procesarRespuesta(valor) {
                     if (nombre && ubicacionElegida) {
-                        localStorage.setItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida, 'true');
+                        localStorage.setItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida, valor);
                     }
                     document.getElementById("pantalla2").style.display = "none";
-                    document.getElementById("pantalla3").style.display = "block";
-                });
+                    if (valor === 'Si') {
+                        document.getElementById("pantalla3").style.display = "block";
+                    } else {
+                        document.getElementById("pantalla-no").style.display = "block";
+                    }
+                }
             });
         });
     </script>
