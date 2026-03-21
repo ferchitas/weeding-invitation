@@ -56,15 +56,15 @@ img.fondo{
 #abrir{
   position:absolute;
   
-  /* NUEVA FÓRMULA: Rastrea el ancho de la pantalla para subir si se estrecha */
-  top: min(73vw, 300px); 
+  /* EL CANDADO PERFECTO:
+     1. Tope hacia arriba: 269px (se congela al llegar a los 369px de ancho).
+     2. Lapa dinámica: 72.8vw (se mueve suavemente entre los dos topes).
+     3. Tope hacia abajo: 300px (posición original en pantalla completa). */
+  top: clamp(269px, 72.8vw, 300px); 
   
   left:50%;
   transform:translateX(-50%);
-  
-  /* NUEVA FÓRMULA: Se hace pequeño dinámicamente si se estrecha la pantalla */
-  font-size: clamp(9px, 3.2vw, 13px);
-  
+  font-size: clamp(9px, 3.15vw, 13px);
   text-align:center;
   white-space: nowrap;
   z-index: 1;
@@ -73,8 +73,7 @@ img.fondo{
 /* ------------------ PANTALLA 2 ------------------ */
 .nombres{
   position:absolute;
-  /* Más apretado hacia arriba */
-  top: max(15%, 100px);
+  top: max(15%, 111px); /* Congela en 745px */
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -93,8 +92,7 @@ img.fondo{
 
 .ilustracion{
   position:absolute;
-  /* Más pegado a los nombres */
-  top: max(40%, 210px);
+  top: max(42%, 313px); /* Congela en 745px */
   left:50%;
   transform:translateX(-50%);
   width:73%;
@@ -105,8 +103,7 @@ img.fondo{
 
 .fecha{
   position:absolute;
-  /* Más pegada a las flores */
-  top: max(54%, 310px); 
+  top: max(57%, 424px);  /* Congela en 745px */
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -116,8 +113,7 @@ img.fondo{
 
 .ilustracion2{
   position:absolute;
-  /* Más pegado a la fecha */
-  top: max(62%, 360px); 
+  top: max(66%, 491px);  /* Congela en 745px */
   left:50%;
   transform:translateX(-50%);
   width:8%; 
@@ -372,12 +368,10 @@ img{ width:100%; height:auto; }
 ========================================================= */
 @media (max-height: 700px) {
   
-  .ilustracion { top: max(38%, 180px); width: 65%; }
-  .fecha { top: max(52%, 270px); }
-  .ilustracion2 { top: max(60%, 310px); }
+  .ilustracion { width: 65%; }
   
   .bloque-secundario { 
-    transform: scale(0.85); /* Encogemos el form un poco más para que quepa seguro */
+    transform: scale(0.9); 
     transform-origin: bottom left; 
     bottom: 2%; 
   }
