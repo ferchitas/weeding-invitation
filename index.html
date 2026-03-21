@@ -127,6 +127,7 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         let nombre = params.get('nombre');
+        const ref = params.get('ref'); // NUEVO: Capturamos la ref de la URL
         const ubicacionElegida = params.get('ubicacion');
 
         if (nombre) {
@@ -135,11 +136,19 @@
             }).join(' ');
         }
 
-        if (nombre) {
-            document.getElementById('nombre-invitado').innerText = nombre;
-            document.getElementById('nombre-oculto').value = nombre;
+        // NUEVO: Creamos un identificador. Si hay 'ref', usa la ref. Si no, usa el 'nombre'.
+        const identificadorUnico = ref ? ref : nombre;
 
-            const asistenciaGuardada = localStorage.getItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida);
+        if (nombre) {
+            // En pantalla siempre muestra el nombre bonito
+            document.getElementById('nombre-invitado').innerText = nombre;
+            
+            // Al Google Sheet manda el identificador único (así distingues a las Lauras)
+            document.getElementById('nombre-oculto').value = identificadorUnico;
+
+            // Usamos el identificador único para la memoria del teléfono
+            const asistenciaGuardada = localStorage.getItem('asistencia_enviada_' + identificadorUnico + '_' + ubicacionElegida);
+            
             if (ubicacionElegida && asistenciaGuardada) {
                 document.getElementById("texto-asistencia").innerText = asistenciaGuardada === 'Si' ? "¡Asistencia confirmada!" : "Asistencia declinada";
                 document.getElementById("contenedor-radios").style.display = "none";
@@ -220,7 +229,8 @@
 
                 function procesarRespuesta(valor) {
                     if (nombre && ubicacionElegida) {
-                        localStorage.setItem('asistencia_enviada_' + nombre + '_' + ubicacionElegida, valor);
+                        // Guardamos con el identificador único para no machacar datos
+                        localStorage.setItem('asistencia_enviada_' + identificadorUnico + '_' + ubicacionElegida, valor);
                     }
                     document.getElementById("pantalla2").style.display = "none";
                     if (valor === 'Si') {
