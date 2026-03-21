@@ -55,10 +55,16 @@ img.fondo{
 /* ------------------ PANTALLA 1 ------------------ */
 #abrir{
   position:absolute;
-  top: max(36%, 300px); 
+  
+  /* NUEVA FÓRMULA: Rastrea el ancho de la pantalla para subir si se estrecha */
+  top: min(73vw, 300px); 
+  
   left:50%;
   transform:translateX(-50%);
-  font-size:13px;
+  
+  /* NUEVA FÓRMULA: Se hace pequeño dinámicamente si se estrecha la pantalla */
+  font-size: clamp(9px, 3.2vw, 13px);
+  
   text-align:center;
   white-space: nowrap;
   z-index: 1;
@@ -67,7 +73,8 @@ img.fondo{
 /* ------------------ PANTALLA 2 ------------------ */
 .nombres{
   position:absolute;
-  top: max(15%, 115px);
+  /* Más apretado hacia arriba */
+  top: max(15%, 100px);
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -86,8 +93,8 @@ img.fondo{
 
 .ilustracion{
   position:absolute;
-  /* Muro en 220px */
-  top: max(42%, 320px);
+  /* Más pegado a los nombres */
+  top: max(40%, 210px);
   left:50%;
   transform:translateX(-50%);
   width:73%;
@@ -98,8 +105,8 @@ img.fondo{
 
 .fecha{
   position:absolute;
-  /* Muro en 430px */
-  top: max(57%, 430px); 
+  /* Más pegada a las flores */
+  top: max(54%, 310px); 
   left:50%;
   transform:translateX(-50%);
   text-align:center;
@@ -109,8 +116,8 @@ img.fondo{
 
 .ilustracion2{
   position:absolute;
-  /* Muro en 490px */
-  top: max(66%, 490px); 
+  /* Más pegado a la fecha */
+  top: max(62%, 360px); 
   left:50%;
   transform:translateX(-50%);
   width:8%; 
@@ -365,11 +372,12 @@ img{ width:100%; height:auto; }
 ========================================================= */
 @media (max-height: 700px) {
   
-  /* Encogemos un poco la ilustración principal en móviles cortos */
-  .ilustracion { width: 65%; }
+  .ilustracion { top: max(38%, 180px); width: 65%; }
+  .fecha { top: max(52%, 270px); }
+  .ilustracion2 { top: max(60%, 310px); }
   
   .bloque-secundario { 
-    transform: scale(0.9); 
+    transform: scale(0.85); /* Encogemos el form un poco más para que quepa seguro */
     transform-origin: bottom left; 
     bottom: 2%; 
   }
